@@ -4,18 +4,16 @@ local Board = {
 	size = 50
 }
 
-local roboto_font = love.graphics.newFont('assets/fonts/RobotoSlab-Medium.ttf', 24, 'none')
-
 function Board:update(dt) end
 
 function Board:draw()
 	love.graphics.setColor(1,1,1)
 
   for i,number in pairs(self.rows) do
-    love.graphics.printf(tostring(number), roboto_font,  i, i*self.size, 100, 'left')
+    love.graphics.printf(tostring(number), DEFAULT_FONT,  i, i*self.size, 100, 'left')
 
     for j,letter in pairs(self.columns) do
-      love.graphics.printf(letter, roboto_font, j*self.size, j, 100, 'left')
+      love.graphics.printf(letter, DEFAULT_FONT, j*self.size, j, 100, 'left')
 
       love.graphics.rectangle('line', i*self.size, j*self.size, self.size, self.size)
     end
