@@ -1,22 +1,47 @@
-local Board = {}
+local Board = {
+	rows = { 1,2,3,4,5,6,7,8 },
+  columns = { 'A','B','C','D','E','F','G','H' },
+	size = 50
+}
 
 local roboto_font = love.graphics.newFont('assets/fonts/RobotoSlab-Medium.ttf', 24, 'none')
 
+function Board:update(dt) end
+
 function Board:draw()
-  local rows = { 1,2,3,4,5,6,7,8 }
-  local columns = { 'A','B','C','D','E','F','G','H' }
+	love.graphics.setColor(1,1,1)
 
-  local size = 50
+  for i,number in pairs(self.rows) do
+    love.graphics.printf(tostring(number), roboto_font,  i, i*self.size, 100, 'left')
 
-  for i,number in pairs(rows) do
-    love.graphics.printf(tostring(number), roboto_font,  i, i*size, 100, 'left')
+    for j,letter in pairs(self.columns) do
+      love.graphics.printf(letter, roboto_font, j*self.size, j, 100, 'left')
 
-    for j,letter in pairs(columns) do
-      love.graphics.printf(letter, roboto_font, j*size, j, 100, 'left')
-
-      love.graphics.rectangle('line', i*size, j*size, size, size)
+      love.graphics.rectangle('line', i*self.size, j*self.size, self.size, self.size)
     end
   end
+
+	love.graphics.setColor(0,0,0)
+
+	self:mouse_hover()
+end
+
+function Board:mouse_hover()
+	local x,y = love.mouse.getPosition()
+
+	love.graphics.setColor(1,0,0)
+
+	for i,_ in pairs(self.rows) do
+		for j,_ in pairs(self.columns) do
+			if (x >= i + self.size) and (x <= i * self.size + self.size)
+				and (y >= j + self.size) and (y <= j * self.size + self.size) then
+				love.graphics.rectangle('fill', (i * self.size), (j * self.size), self.size, self.size)
+				return
+			end
+		end
+	end
+
+	love.graphics.setColor(1,1,1)
 end
 
 return Board
