@@ -1,7 +1,9 @@
+local Config = require('config')
+
 local Board = {
-	rows = { 1,2,3,4,5,6,7,8 },
-  columns = { 'A','B','C','D','E','F','G','H' },
-	size = 50
+	rows = Config.rows,
+  columns = Config.columns,
+	size = Config.size
 }
 
 function Board:update(dt) end

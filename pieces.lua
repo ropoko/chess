@@ -1,4 +1,9 @@
 local Bishop = require('pieces.bishop')
+local King = require('pieces.king')
+local Knight = require('pieces.knight')
+local Pawn = require('pieces.pawn')
+local Queen = require('pieces.queen')
+local Rook = require('pieces.rook')
 
 local Pieces = {}
 
@@ -12,7 +17,13 @@ local Pieces = {}
 ]]
 
 function Pieces:draw()
-	Bishop:draw(10,10)
+	love.graphics.setColor(1,1,1)
+	Bishop:draw()
+	King:draw()
+	Knight:draw()
+	Pawn:draw()
+	Queen:draw()
+	Rook:draw()
 end
 
 return Pieces
