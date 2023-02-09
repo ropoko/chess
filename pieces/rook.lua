@@ -25,6 +25,9 @@ function Rook:set_piece(row, column, row_2, column_2)
 			y = Board.data[column_2][row_2].y
 		}
 	}
+
+	Board.data[column][row].piece = 'rook'
+	Board.data[column_2][row_2].piece = 'rook'
 end
 
 return Rook

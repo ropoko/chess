@@ -69,7 +69,7 @@ function love.mousepressed(x,y,btn)
 			for j,_ in pairs(Board.columns) do
 				if (x >= i + Board.size) and (x <= i * Board.size + Board.size)
 					and (y >= j + Board.size) and (y <= j * Board.size + Board.size) then
-					Board:check_piece()
+					Board:check_piece(Board.data[i][j])
 					return
 				end
 			end
@@ -77,8 +77,8 @@ function love.mousepressed(x,y,btn)
 	end
 end
 
-function Board:check_piece()
-
+function Board:check_piece(data)
+	print(data.piece)
 end
 
 return Board

@@ -18,6 +18,8 @@ function Queen:set_piece(row, column)
 		x = Board.data[column][row].x,
 		y = Board.data[column][row].y
 	}
+
+	Board.data[column][row].piece = 'queen'
 end
 
 return Queen

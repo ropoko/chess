@@ -32,6 +32,8 @@ function Pawn:set_piece(...)
 			x = Board.data[args[i + 1]][args[i]].x,
 			y = Board.data[args[i + 1]][args[i]].y
 		}
+
+		Board.data[args[i + 1]][args[i]].piece = 'pawn'
 	end
 end
 
