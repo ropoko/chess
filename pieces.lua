@@ -16,6 +16,15 @@ local Pieces = {}
 	8 pawns
 ]]
 
+function Pieces:update(dt)
+	Bishop:update(dt)
+	King:update(dt)
+	Knight:update(dt)
+	Pawn:update(dt)
+	Queen:update(dt)
+	Rook:update(dt)
+end
+
 function Pieces:draw()
 	love.graphics.setColor(1,1,1)
 	Bishop:draw()

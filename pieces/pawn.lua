@@ -1,13 +1,37 @@
-local Config = require('config')
+local Board = require('board')
 
-local Pawn = {}
+local Pawn = {
+	position = {},
+	qty_pawn = 8
+}
+
+function Pawn:update(dt)
+	self:set_piece(
+		7,1,
+		7,2,
+		7,3,
+		7,4,
+		7,5,
+		7,6,
+		7,7,
+		7,8
+	)
+end
 
 function Pawn:draw()
-	for i=1, 8 do
-		local x = Config.size * i
-		local y = Config.size * Config.rows[7]
+	for _,coord in pairs(self.position) do
+		love.graphics.printf('Pawn', DEFAULT_FONT_SMALL, coord.x - 25, coord.y + 15, 100, 'center')
+	end
+end
 
-		love.graphics.printf('Pawn', DEFAULT_FONT_SMALL, x - 25, y + 15, 100, 'center')
+function Pawn:set_piece(...)
+	local args = { ... }
+
+	for i=1, (self.qty_pawn * 2), 2 do
+		self.position[i] = {
+			x = Board.data[args[i + 1]][args[i]].x,
+			y = Board.data[args[i + 1]][args[i]].y
+		}
 	end
 end
 
