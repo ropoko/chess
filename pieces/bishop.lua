@@ -1,3 +1,4 @@
+local Config = require('config')
 local BoardData = require('board-data')
 
 local Bishop = {
@@ -30,8 +31,14 @@ function Bishop:set_piece(row, column, row_2, column_2)
 	BoardData[column_2][row_2].piece = 'bishop'
 end
 
-function Bishop:show_possibility()
-	love.graphics.rectangle('fill', 100,100,100,100)
+function Bishop:show_possibility(row, column)
+	love.graphics.rectangle('fill', column * Config.size, row * Config.size, Config.size, Config.size)
+	-- BoardData[column][row]
+	-- for i,_ in pairs(Config.rows) do
+  --   for j,_ in pairs(Config.columns) do
+	-- 		love.graphics.rectangle('fill',  j, i * Config.size, Config.size, Config.size)
+  --   end
+  -- end
 end
 
 return Bishop

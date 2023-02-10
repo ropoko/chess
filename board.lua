@@ -5,7 +5,8 @@ local Pieces = require('pieces')
 local Board = {
 	rows = Config.rows,
   columns = Config.columns,
-	size = Config.size
+	size = Config.size,
+	piece_selected = false
 }
 
 function Board:init()
@@ -24,19 +25,17 @@ end
 function Board:update(dt) end
 
 function Board:draw()
-	love.graphics.setColor(1,1,1)
-
   for i,number in pairs(self.rows) do
     love.graphics.printf(tostring(number), DEFAULT_FONT,  i, i*self.size, 100, 'left')
 
     for j,letter in pairs(self.columns) do
       love.graphics.printf(letter, DEFAULT_FONT, j*self.size, j, 100, 'left')
 
+
       love.graphics.rectangle('line', i*self.size, j*self.size, self.size, self.size)
+
     end
   end
-
-	love.graphics.setColor(0,0,0)
 
 	self:mouse_hover()
 end
@@ -66,7 +65,15 @@ function love.mousepressed(x,y,btn)
 			for j,_ in pairs(Board.columns) do
 				if (x >= i + Board.size) and (x <= i * Board.size + Board.size)
 					and (y >= j + Board.size) and (y <= j * Board.size + Board.size) then
-					Pieces:check_piece(BoardData[i][j].piece)
+
+					if Board.piece_selected then
+						Board.piece_selected = false
+						Pieces:check_piece(nil, 0, 0)
+					else
+						Board.piece_selected = true
+						Pieces:check_piece(BoardData[i][j].piece, j, i)
+					end
+
 					return
 				end
 			end

@@ -6,7 +6,11 @@ local Queen = require('pieces.queen')
 local Rook = require('pieces.rook')
 
 local Pieces = {
-	possibilities = nil
+	possibilities = nil,
+	piece_selected = {
+		row = nil,
+		col = nil
+	}
 }
 
 --[[
@@ -41,8 +45,22 @@ function Pieces:draw()
 	end
 end
 
-function Pieces:check_piece(piece)
-	if piece == nil then return end
+function Pieces:check_piece(piece, row, column)
+	if piece == nil then
+		self.possibilities = nil
+
+		self. piece_selected = {
+			row = nil,
+			col = nil
+		}
+
+		return
+	end
+
+	self.piece_selected = {
+		row = row,
+		col = column
+	}
 
 	self:show_possibilities(piece)
 end
@@ -53,7 +71,7 @@ function Pieces:show_possibilities(piece_name)
 	love.graphics.setColor(155/255, 168/255, 34/255)
 
 	-- sorry
-	require('pieces/'..piece_name):show_possibility()
+	require('pieces/'..piece_name):show_possibility(self.piece_selected.row, self.piece_selected.col)
 
 	love.graphics.setColor(1,1,1)
 end
