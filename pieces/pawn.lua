@@ -37,4 +37,8 @@ function Pawn:set_piece(...)
 	end
 end
 
+function Pawn:show_possibility()
+	love.graphics.rectangle('fill', 100,100,100,100)
+end
+
 return Pawn

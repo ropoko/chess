@@ -30,8 +30,8 @@ function Bishop:set_piece(row, column, row_2, column_2)
 	BoardData[column_2][row_2].piece = 'bishop'
 end
 
-function Bishop:show_possibilities()
-
+function Bishop:show_possibility()
+	love.graphics.rectangle('fill', 100,100,100,100)
 end
 
 return Bishop

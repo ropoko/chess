@@ -21,4 +21,8 @@ function Queen:set_piece(row, column)
 	BoardData[column][row].piece = 'queen'
 end
 
+function Queen:show_possibility()
+	love.graphics.rectangle('fill', 100,100,100,100)
+end
+
 return Queen

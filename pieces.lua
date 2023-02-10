@@ -5,8 +5,6 @@ local Pawn = require('pieces.pawn')
 local Queen = require('pieces.queen')
 local Rook = require('pieces.rook')
 
-local BoardData = require('board-data')
-
 local Pieces = {
 	possibilities = nil
 }
@@ -46,18 +44,17 @@ end
 function Pieces:check_piece(piece)
 	if piece == nil then return end
 
-	local piece_name = piece:gsub("^%l", string.upper)
-
-	print(piece_name)
-
-	self:show_possibilities(piece_name)
+	self:show_possibilities(piece)
 end
 
 function Pieces:show_possibilities(piece_name)
 	self.possibilities = piece_name
 
-	love.graphics.setColor(1,0,0)
-	love.graphics.rectangle('fill', 100, 100, 100, 100)
+	love.graphics.setColor(155/255, 168/255, 34/255)
+
+	-- sorry
+	require('pieces/'..piece_name):show_possibility()
+
 	love.graphics.setColor(1,1,1)
 end
 

@@ -21,4 +21,8 @@ function King:set_piece(row, column)
 	BoardData[column][row].piece = 'king'
 end
 
+function King:show_possibility()
+	love.graphics.rectangle('fill', 100,100,100,100)
+end
+
 return King

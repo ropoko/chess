@@ -30,4 +30,8 @@ function Knight:set_piece(row, column, row_2, column_2)
 	BoardData[column_2][row_2].piece = 'knight'
 end
 
+function Knight:show_possibility()
+	love.graphics.rectangle('fill', 100,100,100,100)
+end
+
 return Knight
