@@ -6,7 +6,7 @@ local Bishop = {
 }
 
 function Bishop:update(dt)
-	self:set_piece(8,3,8,6)
+	self:set_piece(4,4,8,6)
 end
 
 function Bishop:draw()
@@ -32,26 +32,75 @@ function Bishop:set_piece(row, column, row_2, column_2)
 end
 
 function Bishop:show_possibility(row, column)
-	for i=1, (column - 1) do
-		local x = BoardData[column][row].x - (i * Config.size)
-		local y = BoardData[column][row].y - (i * Config.size)
+	self:up_left(row, column)
+	self:down_left(row, column)
 
-		local piece = BoardData[x / Config.size][y / Config.size].piece
+	self:up_right(row, column)
+	self:down_right(row, column)
+end
 
-		if piece ~= nil then
-			love.graphics.rectangle('fill', BoardData[column][row].x, BoardData[column][row].y, Config.size, Config.size)
-			return
-		end
+function Bishop:up_left(row, column)
+	local cont = 1
+
+	while ((BoardData[column - cont] ~= nil) and (BoardData[row - cont] ~= nil)) do
+		local x = BoardData[column - cont][row - cont].x
+		local y = BoardData[column - cont][row - cont].y
+
+		if self:has_piece(y,x) then return end
+
+		cont = cont + 1
 
 		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
 	end
+end
 
-	for i=1, (#Config.columns - column) do
-		local x = BoardData[column][row].x + (i * Config.size)
-		local y = BoardData[column][row].y - (i * Config.size)
+function Bishop:down_left(row, column)
+	local cont = 1
+
+	while ((BoardData[column - cont] ~= nil) and (BoardData[row + cont] ~= nil)) do
+		local x = BoardData[column - cont][row + cont].x
+		local y = BoardData[column - cont][row + cont].y
+
+		if self:has_piece(y,x) then return end
+
+		cont = cont + 1
 
 		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
 	end
+end
+
+function Bishop:up_right(row, column)
+	local cont = 1
+
+	while ((BoardData[column + cont] ~= nil) and (BoardData[row - cont] ~= nil)) do
+		local x = BoardData[column + cont][row - cont].x
+		local y = BoardData[column + cont][row - cont].y
+
+		if self:has_piece(y,x) then return end
+
+		cont = cont + 1
+
+		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
+	end
+end
+
+function Bishop:down_right(row, column)
+	local cont = 1
+
+	while ((BoardData[column + cont] ~= nil) and (BoardData[row + cont] ~= nil)) do
+		local x = BoardData[column + cont][row + cont].x
+		local y = BoardData[column + cont][row + cont].y
+
+		if self:has_piece(y,x) then return end
+
+		cont = cont + 1
+
+		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
+	end
+end
+
+function Bishop:has_piece(row, column)
+	return BoardData[column/Config.size][row/Config.size].piece ~= nil
 end
 
 return Bishop
