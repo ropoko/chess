@@ -1,4 +1,4 @@
-local Board = require('board')
+local BoardData = require('board-data')
 
 local King = {
 	position = {}
@@ -14,11 +14,11 @@ end
 
 function King:set_piece(row, column)
 	King.position = {
-		x = Board.data[column][row].x,
-		y = Board.data[column][row].y
+		x = BoardData[column][row].x,
+		y = BoardData[column][row].y
 	}
 
-	Board.data[column][row].piece = 'king'
+	BoardData[column][row].piece = 'king'
 end
 
 return King

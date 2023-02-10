@@ -1,4 +1,4 @@
-local Board = require('board')
+local BoardData = require('board-data')
 
 local Pawn = {
 	position = {},
@@ -29,11 +29,11 @@ function Pawn:set_piece(...)
 
 	for i=1, (self.qty_pawn * 2), 2 do
 		self.position[i] = {
-			x = Board.data[args[i + 1]][args[i]].x,
-			y = Board.data[args[i + 1]][args[i]].y
+			x = BoardData[args[i + 1]][args[i]].x,
+			y = BoardData[args[i + 1]][args[i]].y
 		}
 
-		Board.data[args[i + 1]][args[i]].piece = 'pawn'
+		BoardData[args[i + 1]][args[i]].piece = 'pawn'
 	end
 end
 

@@ -1,5 +1,4 @@
-local Board = require('board')
-local Config = require('config')
+local BoardData = require('board-data')
 
 local Queen = {
 	position = {}
@@ -15,11 +14,11 @@ end
 
 function Queen:set_piece(row, column)
 	self.position = {
-		x = Board.data[column][row].x,
-		y = Board.data[column][row].y
+		x = BoardData[column][row].x,
+		y = BoardData[column][row].y
 	}
 
-	Board.data[column][row].piece = 'queen'
+	BoardData[column][row].piece = 'queen'
 end
 
 return Queen

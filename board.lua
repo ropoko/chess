@@ -1,27 +1,24 @@
 local Config = require('config')
+local BoardData = require('board-data')
+local Pieces = require('pieces')
 
 local Board = {
 	rows = Config.rows,
   columns = Config.columns,
-	size = Config.size,
-	data = {} -- so we can take control over what piece is on each rectangle
+	size = Config.size
 }
 
 function Board:init()
-	local data = {}
-
 	for i,_ in pairs(self.rows) do
-		data[i] = {}
+		BoardData[i] = {}
     for j,_ in pairs(self.columns) do
-			data[i][j] = {
+			BoardData[i][j] = {
 				x = i * self.size,
 				y = j * self.size,
 				piece = nil
 			}
     end
   end
-
-	self.data = data
 end
 
 function Board:update(dt) end
@@ -69,16 +66,12 @@ function love.mousepressed(x,y,btn)
 			for j,_ in pairs(Board.columns) do
 				if (x >= i + Board.size) and (x <= i * Board.size + Board.size)
 					and (y >= j + Board.size) and (y <= j * Board.size + Board.size) then
-					Board:check_piece(Board.data[i][j])
+					Pieces:check_piece(BoardData[i][j].piece)
 					return
 				end
 			end
 		end
 	end
-end
-
-function Board:check_piece(data)
-	print(data.piece)
 end
 
 return Board

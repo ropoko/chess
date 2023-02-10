@@ -1,4 +1,4 @@
-local Board = require('board')
+local BoardData = require('board-data')
 
 local Rook = {
 	position = {}
@@ -17,17 +17,17 @@ end
 function Rook:set_piece(row, column, row_2, column_2)
 	self.position = {
 		[1] = {
-			x = Board.data[column][row].x,
-			y = Board.data[column][row].y
+			x = BoardData[column][row].x,
+			y = BoardData[column][row].y
 		},
 		[2] = {
-			x = Board.data[column_2][row_2].x,
-			y = Board.data[column_2][row_2].y
+			x = BoardData[column_2][row_2].x,
+			y = BoardData[column_2][row_2].y
 		}
 	}
 
-	Board.data[column][row].piece = 'rook'
-	Board.data[column_2][row_2].piece = 'rook'
+	BoardData[column][row].piece = 'rook'
+	BoardData[column_2][row_2].piece = 'rook'
 end
 
 return Rook
