@@ -5,6 +5,8 @@ local Pawn = require('pieces.pawn')
 local Queen = require('pieces.queen')
 local Rook = require('pieces.rook')
 
+local BoardData = require('board-data')
+
 local Pieces = {
 	possibilities = nil,
 	piece_selected = {
@@ -54,6 +56,8 @@ function Pieces:check_piece(piece, row, column)
 			col = nil
 		}
 
+		self:remove_preview()
+
 		return
 	end
 
@@ -74,6 +78,18 @@ function Pieces:show_possibilities(piece_name)
 	require('pieces/'..piece_name):show_possibility(self.piece_selected.row, self.piece_selected.col)
 
 	love.graphics.setColor(1,1,1)
+end
+
+function Pieces:move_piece(piece, row, column)
+	print(piece, row, column)
+end
+
+function Pieces:remove_preview()
+	for i=1, 8 do
+		for j=1, 8 do
+			BoardData[j][i].preview = false
+		end
+	end
 end
 
 return Pieces

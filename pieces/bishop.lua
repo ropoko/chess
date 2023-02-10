@@ -48,6 +48,8 @@ function Bishop:up_left(row, column)
 
 		if self:has_piece(y,x) then return end
 
+		BoardData[column - cont][row - cont].preview = true
+
 		cont = cont + 1
 
 		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
@@ -62,6 +64,8 @@ function Bishop:down_left(row, column)
 		local y = BoardData[column - cont][row + cont].y
 
 		if self:has_piece(y,x) then return end
+
+		BoardData[column - cont][row + cont].preview = true
 
 		cont = cont + 1
 
@@ -78,6 +82,8 @@ function Bishop:up_right(row, column)
 
 		if self:has_piece(y,x) then return end
 
+		BoardData[column + cont][row - cont].preview = true
+
 		cont = cont + 1
 
 		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
@@ -92,6 +98,8 @@ function Bishop:down_right(row, column)
 		local y = BoardData[column + cont][row + cont].y
 
 		if self:has_piece(y,x) then return end
+
+		BoardData[column + cont][row + cont].preview = true
 
 		cont = cont + 1
 
