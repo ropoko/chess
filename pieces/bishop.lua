@@ -36,12 +36,17 @@ function Bishop:show_possibility(row, column)
 		local x = BoardData[column][row].x - (i * Config.size)
 		local y = BoardData[column][row].y - (i * Config.size)
 
+		local piece = BoardData[x / Config.size][y / Config.size].piece
+
+		if piece ~= nil then
+			love.graphics.rectangle('fill', BoardData[column][row].x, BoardData[column][row].y, Config.size, Config.size)
+			return
+		end
+
 		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
 	end
 
 	for i=1, (#Config.columns - column) do
-		-- if BoardData[i] == nil then return end
-
 		local x = BoardData[column][row].x + (i * Config.size)
 		local y = BoardData[column][row].y - (i * Config.size)
 
