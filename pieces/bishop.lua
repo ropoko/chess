@@ -32,13 +32,21 @@ function Bishop:set_piece(row, column, row_2, column_2)
 end
 
 function Bishop:show_possibility(row, column)
-	love.graphics.rectangle('fill', column * Config.size, row * Config.size, Config.size, Config.size)
-	-- BoardData[column][row]
-	-- for i,_ in pairs(Config.rows) do
-  --   for j,_ in pairs(Config.columns) do
-	-- 		love.graphics.rectangle('fill',  j, i * Config.size, Config.size, Config.size)
-  --   end
-  -- end
+	for i=1, (column - 1) do
+		local x = BoardData[column][row].x - (i * Config.size)
+		local y = BoardData[column][row].y - (i * Config.size)
+
+		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
+	end
+
+	for i=1, (#Config.columns - column) do
+		-- if BoardData[i] == nil then return end
+
+		local x = BoardData[column][row].x + (i * Config.size)
+		local y = BoardData[column][row].y - (i * Config.size)
+
+		love.graphics.rectangle('fill', x, y, Config.size, Config.size)
+	end
 end
 
 return Bishop
