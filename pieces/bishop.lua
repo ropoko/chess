@@ -2,11 +2,24 @@ local Config = require('config')
 local BoardData = require('board-data')
 
 local Bishop = {
-	position = {}
+	position = {
+		{ x = nil, y = nil },
+		{ x = nil, y = nil },
+	}
 }
 
-function Bishop:update(dt)
+function Bishop:load()
 	self:set_piece(4,4,8,6)
+end
+
+function Bishop:update(dt)
+	local x1 = self.position[1].x / 50 --or self.initial_position[1].x
+	local y1 = self.position[1].y /50 --or self.initial_position[1].y
+
+	local x2 = self.position[2].x / 50 --or self.initial_position[2].x
+	local y2 = self.position[2].y / 50 --or self.initial_position[2].y
+
+	self:set_piece(y1,x1, y2,x2)
 end
 
 function Bishop:draw()
@@ -16,7 +29,7 @@ function Bishop:draw()
 end
 
 function Bishop:set_piece(row, column, row_2, column_2)
-	Bishop.position = {
+	self.position = {
 		[1] = {
 			x = BoardData[column][row].x,
 			y = BoardData[column][row].y,

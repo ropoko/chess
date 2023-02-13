@@ -6,6 +6,7 @@ DEFAULT_FONT_SMALL = love.graphics.newFont('assets/fonts/RobotoSlab-Medium.ttf',
 
 function love.load()
 	Board:init()
+	Pieces:load()
 end
 
 function love.update(dt)

@@ -6,7 +6,7 @@ local Board = {
 	rows = Config.rows,
   columns = Config.columns,
 	size = Config.size,
-	piece_selected = nil
+	piece_selected = {x=nil, y=nil}
 }
 
 function Board:init()
@@ -66,20 +66,22 @@ function love.mousepressed(x,y,btn)
 				if (x >= i + Board.size) and (x <= i * Board.size + Board.size)
 					and (y >= j + Board.size) and (y <= j * Board.size + Board.size) then
 
-
 					-- show possibilities or not
-					if Board.piece_selected ~= nil then
+					if Board.piece_selected.x ~= nil then
 						-- once there is a piece selected, and the user clicked in a preview rectangle,
 						-- we move the piece
-						if Board[j][i].preview then
+						if BoardData[i][j].preview then
 							Pieces:move_piece(Board.piece_selected, j, i)
 						end
 
-						Board.piece_selected = nil
-						Pieces:check_piece(nil, 0, 0)
+						Board.piece_selected.x = nil
+						Pieces:check_piece(nil)
 					else
-						Board.piece_selected = BoardData[i][j].piece
-						Pieces:check_piece(Board.piece_selected, j, i)
+						Board.piece_selected = {
+							x = j,
+							y = i
+						}
+						Pieces:check_piece(Board.piece_selected)
 					end
 
 					return
