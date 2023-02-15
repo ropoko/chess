@@ -48,12 +48,12 @@ function Pieces:draw()
 	Rook:draw()
 
 	if self.possibilities ~= nil then
-		self:show_possibilities(self.possibilities)
+		self:show_possibilities()
 	end
 end
 
 function Pieces:check_piece(piece)
-	if piece == nil then
+	if piece == nil or BoardData[piece.y][piece.x].piece == nil then
 		self.possibilities = nil
 
 		self. piece_selected = {
@@ -70,23 +70,31 @@ function Pieces:check_piece(piece)
 	self.piece_selected = {
 		row = piece.x,
 		col = piece.y,
-		name = BoardData[piece.x][piece.y].piece
+		name = BoardData[piece.y][piece.x].piece
 	}
 
-	self:show_possibilities(piece)
+	self:show_possibilities()
 end
 
-function Pieces:show_possibilities(piece_coords)
-	self.possibilities = piece_coords
+function Pieces:show_possibilities()
+	self.possibilities = self.piece_selected
 
 	love.graphics.setColor(155/255, 168/255, 34/255)
 
-	local piece = BoardData[piece_coords.y][piece_coords.x].piece
+	local piece_name = self:get_name(self.piece_selected.name)
 
 	-- sorry
-	require('pieces/'..piece):show_possibility(self.piece_selected.row, self.piece_selected.col)
+	require('pieces/'..piece_name):show_possibility(self.piece_selected.row, self.piece_selected.col)
 
 	love.graphics.setColor(1,1,1)
+end
+
+function Pieces:get_name(piece_name)
+	local indexof = piece_name:find('_')
+
+	local name = piece_name:sub(1, indexof - 1)
+
+	return name
 end
 
 function Pieces:move_piece(piece, row, column)
@@ -96,8 +104,6 @@ function Pieces:move_piece(piece, row, column)
 	BoardData[current_col][current_row].piece = nil
 
 	BoardData[column][row].piece = self.piece_selected.name
-
-	-- require('pieces/'..self.piece_selected.name).
 end
 
 function Pieces:unselect_piece()

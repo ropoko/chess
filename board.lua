@@ -81,6 +81,7 @@ function love.mousepressed(x,y,btn)
 							x = j,
 							y = i
 						}
+
 						Pieces:check_piece(Board.piece_selected)
 					end
 
