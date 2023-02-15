@@ -98,8 +98,10 @@ function Pieces:get_name(piece_name)
 end
 
 function Pieces:move_piece(piece, row, column)
-	local current_col = piece.x
-	local current_row = piece.y
+	local current_col = piece.y
+	local current_row = piece.x
+
+	print(current_col, current_row, column, row)
 
 	BoardData[current_col][current_row].piece = nil
 
