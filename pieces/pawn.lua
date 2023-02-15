@@ -1,3 +1,4 @@
+local Config = require('config')
 local BoardData = require('board-data')
 
 local Pawn = {
@@ -5,17 +6,29 @@ local Pawn = {
 	qty_pawn = 8
 }
 
+function Pawn:load()
+	for i=1, 8 do
+		BoardData[i][7].piece = 'pawn_'..i
+	end
+end
+
 function Pawn:update(dt)
-	self:set_piece(
-		7,1,
-		7,2,
-		7,3,
-		7,4,
-		7,5,
-		7,6,
-		7,7,
-		7,8
-	)
+	for i=1, 8 do
+		for j=1, 8 do
+			if BoardData[j][i].piece == tostring('pawn_'..j) then
+				-- print(tostring('pawn_'..i))
+
+				self.position[j] = {
+					x = BoardData[j][i].x,
+					y = BoardData[j][i].y
+				}
+
+				BoardData[j][i].piece = 'pawn_'..j
+			end
+		end
+	end
+
+	-- print(#self.position)
 end
 
 function Pawn:draw()
@@ -24,21 +37,23 @@ function Pawn:draw()
 	end
 end
 
-function Pawn:set_piece(...)
-	local args = { ... }
-
-	for i=1, (self.qty_pawn * 2), 2 do
-		self.position[i] = {
-			x = BoardData[args[i + 1]][args[i]].x,
-			y = BoardData[args[i + 1]][args[i]].y
-		}
-
-		BoardData[args[i + 1]][args[i]].piece = 'pawn'
-	end
+function Pawn:show_possibility(row, column)
+	self:up(row, column)
 end
 
-function Pawn:show_possibility()
-	love.graphics.rectangle('fill', 100,100,100,100)
+function Pawn:up(row, column)
+	local x = BoardData[column][row - 1].x
+	local y = BoardData[column][row - 1].y
+
+	if self:has_piece(y,x) then return end
+
+	BoardData[column][row - 1].preview = true
+
+	love.graphics.rectangle('fill', x, y, Config.size, Config.size)
+end
+
+function Pawn:has_piece(row, column)
+	return BoardData[column/Config.size][row/Config.size].piece ~= nil
 end
 
 return Pawn

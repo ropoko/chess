@@ -27,6 +27,7 @@ local Pieces = {
 
 function Pieces:load()
 	Bishop:load()
+	Pawn:load()
 end
 
 function Pieces:update(dt)
@@ -101,7 +102,7 @@ function Pieces:move_piece(piece, row, column)
 	local current_col = piece.y
 	local current_row = piece.x
 
-	print(current_col, current_row, column, row)
+	-- print(current_col, current_row, column, row)
 
 	BoardData[current_col][current_row].piece = nil
 
